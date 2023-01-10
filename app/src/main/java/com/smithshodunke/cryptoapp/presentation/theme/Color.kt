@@ -1,4 +1,4 @@
-package com.smithshodunke.cryptoapp.ui.theme
+package com.smithshodunke.cryptoapp.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
