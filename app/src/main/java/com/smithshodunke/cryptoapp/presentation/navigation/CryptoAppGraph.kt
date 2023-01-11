@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.smithshodunke.cryptoapp.presentation.navigation.CryptoDestinations.COIN_INFO_ID_ARGUMENT
 import com.smithshodunke.cryptoapp.presentation.ui.coininfo.CoinInfoScreen
+import com.smithshodunke.cryptoapp.presentation.ui.coininfo.CoinInfoViewModel
 import com.smithshodunke.cryptoapp.presentation.ui.coinlist.CoinListScreen
 import com.smithshodunke.cryptoapp.presentation.ui.coinlist.CoinListViewModel
 
@@ -30,7 +31,7 @@ fun CryptoAppGraph(
         ) {
             val viewModel: CoinListViewModel = hiltViewModel()
             CoinListScreen(
-                viewModel,
+                viewModel = viewModel,
                 navigateToCoinInfoScreen = { coinId ->
                     CryptoNavigationActions(navController).navigateToCoinInfo(coinId)
                 }
@@ -42,7 +43,10 @@ fun CryptoAppGraph(
                 navArgument(COIN_INFO_ID_ARGUMENT) { type = NavType.StringType }
             )
         ) {
-            CoinInfoScreen()
+            val viewModel: CoinInfoViewModel = hiltViewModel()
+            CoinInfoScreen(
+                viewModel = viewModel
+            )
         }
     }
 }
