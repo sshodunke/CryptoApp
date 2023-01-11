@@ -7,4 +7,5 @@ object Constants {
     const val GET_COIN_BY_ID_ENDPOINT = "/v1/coins/{id}"
 
     const val GENERIC_UNKNOWN_ERROR_MSG = "Unknown error has occurred."
+    const val NETWORK_ERROR = "A network error has occurred."
 }
