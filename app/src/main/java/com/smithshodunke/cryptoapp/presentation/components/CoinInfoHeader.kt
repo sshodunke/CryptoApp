@@ -24,7 +24,9 @@ fun CoinInfoHeader(
         verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage(
-            modifier = Modifier.height(50.dp).width(50.dp),
+            modifier = Modifier
+                .height(50.dp)
+                .width(50.dp),
             model = coinInfo.logo,
             contentDescription = "Crypto Coin Logo",
             alignment = Alignment.Center,

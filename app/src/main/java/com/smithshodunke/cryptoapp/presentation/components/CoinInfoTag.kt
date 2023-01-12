@@ -14,12 +14,13 @@ import com.smithshodunke.cryptoapp.presentation.theme.MediumDimension
 
 @Composable
 fun CoinInfoTag(tag: String) {
-    Box(modifier = Modifier
-        .border(
-            width = 1.dp,
-            color = Color.Black
-        )
-        .padding(MediumDimension)
+    Box(
+        modifier = Modifier
+            .border(
+                width = 1.dp,
+                color = Color.Black
+            )
+            .padding(MediumDimension)
     ) {
         Text(
             text = tag,

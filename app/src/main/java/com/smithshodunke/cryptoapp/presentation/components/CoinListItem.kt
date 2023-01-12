@@ -46,7 +46,9 @@ fun CoinListItem(
                 text = "active",
                 color = Color.Green,
                 textAlign = TextAlign.End,
-                modifier = Modifier.align(CenterVertically).weight(0.2f),
+                modifier = Modifier
+                    .align(CenterVertically)
+                    .weight(0.2f),
                 overflow = TextOverflow.Clip
             )
         } else {
@@ -54,7 +56,9 @@ fun CoinListItem(
                 text = "inactive",
                 color = Color.Red,
                 textAlign = TextAlign.End,
-                modifier = Modifier.align(CenterVertically).weight(0.2f),
+                modifier = Modifier
+                    .align(CenterVertically)
+                    .weight(0.2f),
             )
         }
     }
