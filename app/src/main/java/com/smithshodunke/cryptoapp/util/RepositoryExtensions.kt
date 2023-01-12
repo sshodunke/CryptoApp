@@ -16,12 +16,17 @@ suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend ()
             Resource.Success(apiCall.invoke())
         } catch (throwable: Throwable) {
             when (throwable) {
-                is IOException -> Resource.Error(message = Constants.NETWORK_ERROR)
+                is IOException -> {
+                    throwable.printStackTrace()
+                    Resource.Error(message = Constants.NETWORK_ERROR)
+                }
                 is HttpException -> {
+                    throwable.printStackTrace()
                     val code = throwable.code()
                     Resource.Error(message = code.toString())
                 }
                 else -> {
+                    throwable.printStackTrace()
                     Resource.Error(message = Constants.GENERIC_UNKNOWN_ERROR_MSG)
                 }
             }

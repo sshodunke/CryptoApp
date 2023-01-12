@@ -22,15 +22,11 @@ fun CoinInfoDto.toCoinInfo(): CoinInfo {
         id = this.id,
         description = this.description,
         isActive = this.is_active,
-        isNew = this.is_new,
-        lastDataAt = this.last_data_at,
-        links = this.links,
         logo = this.logo,
-        message = this.message,
         name = this.name,
         rank = this.rank,
         symbol = this.symbol,
         team = this.team,
-        type = this.type
+        tags = this.tags
     )
 }
