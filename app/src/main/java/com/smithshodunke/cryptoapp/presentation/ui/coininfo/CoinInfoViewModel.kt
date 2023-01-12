@@ -1,6 +1,5 @@
 package com.smithshodunke.cryptoapp.presentation.ui.coininfo
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.smithshodunke.cryptoapp.domain.repository.CoinRepository
@@ -15,8 +14,8 @@ import javax.inject.Inject
 class CoinInfoViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val repository: CoinRepository
-): BaseViewModel<CoinInfoViewState>(
-    CoinInfoViewState(
+) : BaseViewModel<CoinInfoStateEvent, CoinInfoViewState>(
+    initialState = CoinInfoViewState(
         coinId = savedStateHandle.get<String>(COIN_INFO_ID_ARGUMENT) ?: "N/A"
     )
 ) {
@@ -27,16 +26,19 @@ class CoinInfoViewModel @Inject constructor(
         }
     }
 
-    fun recallApi() {
-        viewModelScope.launch {
-            getCoinById()
+    override fun handleStateEvent(stateEvent: CoinInfoStateEvent) {
+        when (stateEvent) {
+            CoinInfoStateEvent.RecallApi -> {
+                viewModelScope.launch {
+                    getCoinById()
+                }
+            }
         }
     }
 
     private suspend fun getCoinById() {
         repository.getCoinById(viewState.value.coinId).collect { resource ->
-            Log.d("TAG", "getCoinById: $resource")
-            when(resource) {
+            when (resource) {
                 is Resource.Error -> {
                     setViewState {
                         copy(

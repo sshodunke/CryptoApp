@@ -26,7 +26,7 @@ fun CoinListScreen(
         navigateToCoinInfoScreen = { coinInfoId ->
             navigateToCoinInfoScreen(coinInfoId)
         },
-        recallApi = { viewModel.recallApi() }
+        recallApi = { viewModel.setStateEvent(CoinListStateEvent.RecallApi) }
     )
 }
 

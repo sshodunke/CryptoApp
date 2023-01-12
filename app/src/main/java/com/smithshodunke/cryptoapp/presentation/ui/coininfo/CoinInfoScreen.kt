@@ -26,7 +26,7 @@ fun CoinInfoScreen(
 
     CoinInfoScreen(
         state = viewState,
-        recallApi = { viewModel.recallApi() }
+        recallApi = { viewModel.setStateEvent(CoinInfoStateEvent.RecallApi) }
     )
 }
 

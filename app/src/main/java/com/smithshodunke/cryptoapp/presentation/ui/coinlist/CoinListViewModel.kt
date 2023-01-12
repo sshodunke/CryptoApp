@@ -1,6 +1,5 @@
 package com.smithshodunke.cryptoapp.presentation.ui.coinlist
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.smithshodunke.cryptoapp.domain.repository.CoinRepository
 import com.smithshodunke.cryptoapp.presentation.util.BaseViewModel
@@ -12,8 +11,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CoinListViewModel @Inject constructor(
     private val repository: CoinRepository
-) : BaseViewModel<CoinListViewState>(
-    CoinListViewState()
+) : BaseViewModel<CoinListStateEvent, CoinListViewState>(
+    initialState = CoinListViewState()
 ) {
     init {
         viewModelScope.launch {
@@ -21,15 +20,18 @@ class CoinListViewModel @Inject constructor(
         }
     }
 
-    fun recallApi() {
-        viewModelScope.launch {
-            getAllCoins()
+    override fun handleStateEvent(stateEvent: CoinListStateEvent) {
+        when(stateEvent) {
+            CoinListStateEvent.RecallApi -> {
+                viewModelScope.launch {
+                    getAllCoins()
+                }
+            }
         }
     }
 
     private suspend fun getAllCoins() {
         repository.getAllCoins().collect { resource ->
-            Log.d("TAG", "getAllCoins: $resource")
             when (resource) {
                 is Resource.Error -> {
                     setViewState { CoinListViewState(error = resource.message) }
