@@ -9,11 +9,9 @@ fun CoinDto.toCoin(): Coin {
     return Coin(
         id = this.id,
         isActive = this.is_active,
-        isNew = this.is_new,
         name = this.name,
         rank = this.rank,
         symbol = this.symbol,
-        type = this.type
     )
 }
 
