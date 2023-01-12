@@ -52,7 +52,7 @@ fun CoinListScreen(
                             navigateToCoinInfoScreen(coinId)
                         }
                     )
-                    Divider(color = Color.Black)
+                    Divider(color = Color.Gray)
                 }
             }
         } else {
