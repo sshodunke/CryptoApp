@@ -6,12 +6,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.smithshodunke.cryptoapp.presentation.components.CoinListItem
+import com.smithshodunke.cryptoapp.presentation.components.CryptoTopBar
 import com.smithshodunke.cryptoapp.presentation.components.LoadingState
 
 @Composable
@@ -21,20 +22,26 @@ fun CoinListScreen(
 ) {
     val viewState = viewModel.viewState.value
 
-    CoinListScreen(
-        state = viewState,
-        navigateToCoinInfoScreen = { coinInfoId ->
-            navigateToCoinInfoScreen(coinInfoId)
-        },
-        recallApi = { viewModel.setStateEvent(CoinListStateEvent.RecallApi) }
-    )
+    Scaffold(
+        topBar = {
+            CryptoTopBar(stateEvent = { viewModel.setStateEvent(it) })
+        }
+    ) {
+        CoinListScreen(
+            state = viewState,
+            navigateToCoinInfoScreen = { coinInfoId ->
+                navigateToCoinInfoScreen(coinInfoId)
+            },
+            setStateEvent = { viewModel.setStateEvent(it) }
+        )
+    }
 }
 
 @Composable
 fun CoinListScreen(
     state: CoinListViewState,
     navigateToCoinInfoScreen: (coinInfoId: String) -> Unit,
-    recallApi: () -> Unit
+    setStateEvent: (stateEvent: CoinListStateEvent) -> Unit
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -45,6 +52,10 @@ fun CoinListScreen(
         }
         if (state.error.isNullOrBlank()) {
             LazyColumn {
+                item {
+
+
+                }
                 items(state.coinList) { cryptoCoin ->
                     CoinListItem(
                         coin = cryptoCoin,
@@ -65,7 +76,7 @@ fun CoinListScreen(
                     text = state.error,
                     color = Color.Red,
                 )
-                Button(onClick = { recallApi() }) {
+                Button(onClick = { setStateEvent(CoinListStateEvent.RecallApi) }) {
                     Text(text = "Retry")
                 }
             }
@@ -79,6 +90,6 @@ fun PreviewCoinListScreen() {
     CoinListScreen(
         state = CoinListViewState(),
         navigateToCoinInfoScreen = {},
-        recallApi = {}
+        setStateEvent = {}
     )
 }
