@@ -57,13 +57,20 @@ fun CoinInfoScreen(
                     }
 
                     item {
-                        if (coinInfo.description.isNotEmpty()) {
-                            Text(text = state.coinInfo.description, fontWeight = FontWeight.Light)
+                        if (!coinInfo.description.isNullOrEmpty()) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                Text(text = "Description", fontWeight = FontWeight.Bold)
+                            }
+
+                            Text(text = coinInfo.description, fontWeight = FontWeight.Light)
                             Spacer(modifier = Modifier.height(MediumDimension))
                         }
                     }
 
-                    if (coinInfo.tags.isNotEmpty()) {
+                    if (!coinInfo.tags.isNullOrEmpty()) {
                         item {
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
